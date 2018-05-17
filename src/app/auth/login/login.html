@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <div class="row justify-content-around">
+    <div class="col-5">
+      <form
+        action="#"
+        [formGroup]="loginForm">
+        <h2 style="text-align: center">Login Form</h2>
+        <div class="form-group">
+          <label for="username-login">
+            Enter your username
+          </label>
+          <input
+            type="email"
+            id="username-login"
+            name="username"
+            class="form-control"
+            formControlName="email"
+            [(ngModel)]="user.email"
+            placeholder="Enter your username"
+            required="required"/>
+        </div>
+        <div
+          *ngIf="loginForm.controls.email.invalid
+            && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"
+          class="form-group">
+          <div
+            *ngIf="loginForm.controls.email.errors?.required">
+            Email is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">
+            Enter your password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            formControlName="password"
+            [(ngModel)]="user.password"
+            placeholder="Enter your password"
+            required="required"/>
+        </div>
+        <div
+          *ngIf="loginForm.controls.password.invalid
+            && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
+          class="form-group">
+          <div
+            *ngIf="loginForm.controls.password.errors?.required">
+            Password is required
+          </div>
+        </div>
+        <div class="form-group">
+          <button
+            *ngIf="!isLogged"
+            type="submit"
+            (click)="login($event)"
+            [ngClass]="{'btn-secondary': isWaiteResponse}"
+            class="btn btn-primary">
+            LogIn
+          </button>
+          <button
+            *ngIf="isLogged"
+            type="submit"
+            (click)="logout()"
+            [ngClass]="{'btn-secondary': isWaiteResponse}"
+            class="btn btn-primary">
+            logout
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-5">
+      <app-credentials-component></app-credentials-component>
+    </div>
+    <div class="col-2" style="text-align: center">
+      <h3 style="text-align: center;margin-bottom: 50px">Login Indicator</h3>
+      <button *ngIf="isLogged" class="btn btn-success btn-lg" disabled>LogIn</button>
+      <button *ngIf="!isLogged" class="btn btn-danger btn-lg" disabled>UnLogIn</button>
+    </div>
+  </div>
+</div>
+
